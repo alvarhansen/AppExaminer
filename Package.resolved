@@ -9,6 +9,15 @@
           "revision": "6619c489019ad32d0cfb2cbf30ceb87bfe153050",
           "version": "1.28.0"
         }
+      },
+      {
+        "package": "SocketRocket",
+        "repositoryURL": "https://github.com/robnadin/SocketRocket",
+        "state": {
+          "branch": "spm-support",
+          "revision": "fe86ec01176ea3365ffa2d04a2bb6dd7a9e6c01e",
+          "version": null
+        }
       }
     ]
   },
