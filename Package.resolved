@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CertificateSigningRequest",
+        "repositoryURL": "https://github.com/cbaker6/CertificateSigningRequest",
+        "state": {
+          "branch": null,
+          "revision": "6619c489019ad32d0cfb2cbf30ceb87bfe153050",
+          "version": "1.28.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
