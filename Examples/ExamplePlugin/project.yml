@@ -1,0 +1,19 @@
+name: ExamplePluginApp
+options:
+  bundleIdPrefix: com.example
+packages:
+  FlipperClientSwift:
+    path: ../../
+targets:
+  ExamplePluginApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources: Sources
+    dependencies:
+      - package: FlipperClientSwift
+    info:
+      path: Info.plist
+      properties:
+        LSRequiresIPhoneOS: true
+        UILaunchStoryboardName: none
