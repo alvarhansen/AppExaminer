@@ -1,6 +1,6 @@
 # FlipperClientSwift
 
-Facebook Flipper iOS client side reimplementation with simpler dependencies.
+[Facebook Flipper](https://github.com/facebook/flipper) iOS client side reimplementation with simpler dependencies.
 
 - Supports Swift Package Manager.
 
