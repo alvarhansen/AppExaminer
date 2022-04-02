@@ -63,6 +63,8 @@ public class FlipperClient {
             deinitialisePlugin(identifier: params.plugin)
         case .execute(let identifier, let params):
             executePlugin(identifier: identifier, params: params, data: data)
+        case .isMethodSupported(let identifier, let params):
+            isPluginMethodSupported(identifier: identifier, params: params, connection: connection)
         }
     }
 
@@ -139,6 +141,23 @@ public class FlipperClient {
             }
         )
     }
+
+    private func isPluginMethodSupported(
+        identifier: Int,
+        params: MessageResponse.Method.IsMethodSupportedParams,
+        connection: WebSocketConnection
+    ) {
+        let isSupported = pluginConnection[params.api]?.isMethodSupported(params.method) == true
+
+        try! connection.send(data: try! encoder.encode(
+            SuccessMessage(
+                success: [
+                    "isSupported": isSupported
+                ],
+                id: identifier
+            )
+        ))
+    }
 }
 
 extension FlipperClient: FlipperConnectionManagerDelegate {
@@ -189,11 +208,17 @@ private struct MessageResponse: Decodable {
             let method: String
         }
 
+        struct IsMethodSupportedParams: Decodable {
+            let api: String
+            let method: String
+        }
+
         case `init`(InitParams)
         case `deinit`(DeinitParams)
         case getPlugins(Int)
         case getBackgroundPlugins(Int)
         case execute(Int, ExecuteParams)
+        case isMethodSupported(Int, IsMethodSupportedParams)
     }
 
     let method: Method
@@ -206,6 +231,7 @@ private struct MessageResponse: Decodable {
                 case getPlugins
                 case getBackgroundPlugins
                 case execute
+                case isMethodSupported
             }
             let id: Int?
             let method: Method
@@ -238,6 +264,11 @@ private struct MessageResponse: Decodable {
             self.method = .execute(
                 try container.decode(Int.self, forKey: ParamsCodingKey.id),
                 try container.decode(Method.ExecuteParams.self, forKey: ParamsCodingKey.params)
+            )
+        case .isMethodSupported:
+            self.method = .isMethodSupported(
+                try container.decode(Int.self, forKey: ParamsCodingKey.id),
+                try container.decode(Method.IsMethodSupportedParams.self, forKey: ParamsCodingKey.params)
             )
         }
     }

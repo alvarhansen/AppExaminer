@@ -34,8 +34,16 @@ class FlipperConnectionImpl: FlipperConnection {
         ))
     }
 
+    func isMethodSupported(_ method: String) -> Bool {
+        receivers.keys.contains(method)
+    }
+
     func call(method: String, identifier: Int, params: (Decodable.Type) -> Decodable) {
-        let type = receivers[method]!.responseType
+        guard let receiver = receivers[method] else {
+            // todo: report error
+            return
+        }
+        let type = receiver.responseType
         let parameters = params(type.self)
 
         receivers[method]?.callback(

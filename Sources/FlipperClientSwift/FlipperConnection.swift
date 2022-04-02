@@ -7,6 +7,8 @@ public protocol FlipperResponder {
 
 public protocol FlipperConnection {
 
+    func isMethodSupported(_ method: String) -> Bool
+
 //    func send<T: Encodable>(_ method: String, withParams params: T)
 
     func call(method: String, identifier: Int, params: (Decodable.Type) -> Decodable)
