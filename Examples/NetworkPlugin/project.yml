@@ -1,0 +1,23 @@
+name: NetworkPluginApp
+options:
+  bundleIdPrefix: com.example
+packages:
+  FlipperClientSwift:
+    path: ../../
+  FLEX:
+    url: https://github.com/FLEXTool/FLEX.git
+    branch: master
+targets:
+  NetworkPluginApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources: Sources
+    dependencies:
+      - package: FlipperClientSwift
+      - package: FLEX
+    info:
+      path: Info.plist
+      properties:
+        LSRequiresIPhoneOS: true
+        UILaunchStoryboardName: none
