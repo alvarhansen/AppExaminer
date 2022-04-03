@@ -9,7 +9,7 @@ public protocol FlipperConnection {
 
     func isMethodSupported(_ method: String) -> Bool
 
-//    func send<T: Encodable>(_ method: String, withParams params: T)
+    func send<T: Encodable>(_ method: String, withParams params: T) throws
 
     func call(method: String, identifier: Int, params: (Decodable.Type) -> Decodable)
 
