@@ -1,0 +1,22 @@
+name: NetworkPluginApp
+options:
+  bundleIdPrefix: com.example
+packages:
+  FlipperClientSwift:
+    path: ../../
+  FlipperClientSwiftNetworkPlugin:
+    path: ../../
+targets:
+  NetworkPluginApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources: Sources
+    dependencies:
+      - package: FlipperClientSwift
+      - package: FlipperClientSwiftNetworkPlugin
+    info:
+      path: Info.plist
+      properties:
+        LSRequiresIPhoneOS: true
+        UILaunchStoryboardName: none
