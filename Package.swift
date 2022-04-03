@@ -10,7 +10,12 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "FlipperClientSwift",
-            targets: ["FlipperClientSwift"]),
+            targets: ["FlipperClientSwift"]
+        ),
+        .library(
+            name: "FlipperClientSwiftNetworkPlugin",
+            targets: ["FlipperClientSwift", "FlipperClientSwiftNetworkPlugin"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -26,6 +31,10 @@ let package = Package(
                 "CertificateSigningRequest",
                 "SocketRocket"
             ]),
+        .target(
+            name: "FlipperClientSwiftNetworkPlugin",
+            dependencies: ["FlipperClientSwift"]
+        ),
         .testTarget(
             name: "FlipperClientSwiftTests",
             dependencies: ["FlipperClientSwift"]),
