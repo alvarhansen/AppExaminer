@@ -15,6 +15,7 @@ class ApplicationMain: UIResponder, UIApplicationDelegate {
         )
 
         FlipperClient.shared.addPlugin(ExamplePlugin())
+        FlipperClient.shared.addPlugin(UserDefaultsPlugin())
         FlipperClient.shared.start()
 
         return true
