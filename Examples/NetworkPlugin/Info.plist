@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>NSLocalNetworkUsageDescription</string>
 	<key>UILaunchStoryboardName</key>
 	<string>none</string>
 </dict>
