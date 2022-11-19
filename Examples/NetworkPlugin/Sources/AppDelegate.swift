@@ -1,10 +1,14 @@
 import FlipperClientSwift
 import FlipperClientSwiftNetworkPlugin
+import FlipperDesktopAppConnection
+import FlipperWebSocketServerConnection
 import UIKit
 
 @UIApplicationMain
 class ApplicationMain: UIResponder, UIApplicationDelegate {
     private lazy var _window = UIWindow()
+
+    var flipperClient: FlipperClient?
 
     func application(
         _: UIApplication,
@@ -15,8 +19,10 @@ class ApplicationMain: UIResponder, UIApplicationDelegate {
             rootViewController: UIViewController()
         )
 
-        FlipperClient.shared.addPlugin(NetworkPlugin())
-        FlipperClient.shared.start()
+//        flipperClient = FlipperClient(flipperConnectionManager: FlipperWebSocketServerConnectionManager())
+        flipperClient = FlipperClient(flipperConnectionManager: FlipperDesktopAppConnectionManager())
+        flipperClient?.addPlugin(NetworkPlugin())
+        flipperClient?.start()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.performPOSTRequest()
