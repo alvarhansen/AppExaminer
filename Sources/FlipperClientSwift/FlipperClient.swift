@@ -2,22 +2,6 @@ import Foundation
 
 public class FlipperClient {
 
-    public static let shared: FlipperClient = FlipperClient(flipperConnectionManager: FlipperConnectionManager(
-        insecureFlipperSocketProviderBuilder: { params, delegate in
-            InsecureSocketRocketFlipperSocketProvider(
-                parameters: params,
-                delegate: delegate
-            )
-        },
-        secureFlipperSocketProviderBuilder: { params, delegate, deviceCertificate in
-            SecureSocketRocketFlipperSocketProvider(
-                parameters: params,
-                deviceCertificate: deviceCertificate,
-                delegate: delegate
-            )
-        }
-    ))
-
     private let flipperConnectionManager: FlipperConnectionManager
     private var plugins: [FlipperPlugin] = []
     private var pluginConnection: [String: FlipperConnection] = [:]
@@ -25,7 +9,7 @@ public class FlipperClient {
     private let decoder: JSONDecoder = JSONDecoder()
     private let encoder: JSONEncoder = JSONEncoder()
 
-    init(
+    public init(
         flipperConnectionManager: FlipperConnectionManager
     ) {
         self.flipperConnectionManager = flipperConnectionManager
@@ -36,8 +20,6 @@ public class FlipperClient {
     }
 
     public func start() {
-        FlipperCertificateManager.deleteKeys()
-
         self._start()
     }
 
@@ -161,7 +143,7 @@ public class FlipperClient {
 }
 
 extension FlipperClient: FlipperConnectionManagerDelegate {
-    func didReceiveMessage(data: Data, sender: WebSocketConnection) {
+    public func didReceiveMessage(data: Data, sender: WebSocketConnection) {
         handleMessage(data: data, connection: sender)
     }
 }

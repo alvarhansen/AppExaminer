@@ -1,25 +1,23 @@
 import Foundation
+import FlipperClientSwift
 import SocketRocket
 
-class SecureSocketRocketFlipperSocketProvider: NSObject {
+class InsecureSocketRocketFlipperSocketProvider: NSObject {
 
     private let parameters: FlipperSocketProviderConnectionParameters
-    private let deviceCertificate: SecIdentity
     private weak var delegate: FlipperSocketProviderDelegate?
     private var socket: SRWebSocket?
 
     init(
         parameters: FlipperSocketProviderConnectionParameters,
-        deviceCertificate: SecIdentity,
         delegate: FlipperSocketProviderDelegate?
     ) {
         self.parameters = parameters
-        self.deviceCertificate = deviceCertificate
         self.delegate = delegate
     }
 }
 
-extension SecureSocketRocketFlipperSocketProvider: SRWebSocketDelegate {
+extension InsecureSocketRocketFlipperSocketProvider: SRWebSocketDelegate {
 
     func webSocket(_ webSocket: SRWebSocket, didReceiveMessageWith string: String) {
         guard let data = string.data(using: .utf8) else {
@@ -37,12 +35,12 @@ extension SecureSocketRocketFlipperSocketProvider: SRWebSocketDelegate {
     }
 }
 
-extension SecureSocketRocketFlipperSocketProvider: FlipperSocketProvider {
+extension InsecureSocketRocketFlipperSocketProvider: FlipperSocketProvider {
 
     func start() {
         var comps = URLComponents()
-        comps.scheme = "wss"
-        comps.port = 9088
+        comps.scheme = "ws"
+        comps.port = 9089
         comps.host = parameters.hostAddress
         comps.queryItems = [
             .init(name: "os", value: parameters.systemName),
@@ -55,12 +53,9 @@ extension SecureSocketRocketFlipperSocketProvider: FlipperSocketProvider {
 
         let request = URLRequest(url: comps.url!.absoluteURL)
 
-        let securityPolicy = SecIdentitySecurityPolicy()
-        securityPolicy.deviceCertificate = deviceCertificate
-
         socket = SRWebSocket(
             urlRequest: request,
-            securityPolicy: securityPolicy
+            securityPolicy: .default()
         )
         socket?.delegate = self
         socket?.open()
@@ -72,28 +67,5 @@ extension SecureSocketRocketFlipperSocketProvider: FlipperSocketProvider {
 
     func send(data: Data) throws {
         try socket?.send(data: data)
-    }
-}
-
-private class SecIdentitySecurityPolicy: SRSecurityPolicy {
-
-    var deviceCertificate: SecIdentity!
-
-    override func updateSecurityOptions(in stream: Stream) {
-        log(Self.self, #function, stream)
-        if let outputStream = stream as? OutputStream {
-            outputStream.setProperty(
-                [
-                    kCFStreamSSLValidatesCertificateChain: false,
-                    kCFStreamSSLLevel: kCFStreamSocketSecurityLevelNegotiatedSSL,
-                    kCFStreamPropertySocketSecurityLevel: kCFStreamSocketSecurityLevelNegotiatedSSL,
-                    kCFStreamSSLIsServer: false,
-                    kCFStreamSSLCertificates: [
-                        deviceCertificate as Any
-                    ]
-                ],
-                forKey: kCFStreamPropertySSLSettings as Stream.PropertyKey
-            )
-        }
     }
 }

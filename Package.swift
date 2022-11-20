@@ -16,6 +16,10 @@ let package = Package(
             name: "FlipperClientSwiftNetworkPlugin",
             targets: ["FlipperClientSwift", "FlipperClientSwiftNetworkPlugin"]
         ),
+        .library(
+            name: "FlipperDesktopAppConnection",
+            targets: ["FlipperDesktopAppConnection"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -28,12 +32,18 @@ let package = Package(
         .target(
             name: "FlipperClientSwift",
             dependencies: [
-                "CertificateSigningRequest",
-                "SocketRocket"
             ]),
         .target(
             name: "FlipperClientSwiftNetworkPlugin",
             dependencies: ["FlipperClientSwift"]
+        ),
+        .target(
+            name: "FlipperDesktopAppConnection",
+            dependencies: [
+                "FlipperClientSwift",
+                "CertificateSigningRequest",
+                "SocketRocket"
+            ]
         ),
         .testTarget(
             name: "FlipperClientSwiftTests",
