@@ -20,6 +20,10 @@ let package = Package(
             name: "FlipperDesktopAppConnection",
             targets: ["FlipperDesktopAppConnection"]
         ),
+        .library(
+            name: "FlipperWebSocketServerConnection",
+            targets: ["FlipperWebSocketServerConnection"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -35,6 +39,10 @@ let package = Package(
             ]),
         .target(
             name: "FlipperClientSwiftNetworkPlugin",
+            dependencies: ["FlipperClientSwift"]
+        ),
+        .target(
+            name: "FlipperWebSocketServerConnection",
             dependencies: ["FlipperClientSwift"]
         ),
         .target(
