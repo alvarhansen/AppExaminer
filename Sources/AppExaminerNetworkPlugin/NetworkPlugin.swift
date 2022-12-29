@@ -1,19 +1,19 @@
-import FlipperClientSwift
+import AppExaminer
 import Foundation
 
-public class NetworkPlugin: FlipperPlugin {
+public class NetworkPlugin: AppExaminerPlugin {
 
     struct MockResponsesResponse: Decodable {
         let routes: [String]
     }
 
-    private var connection: FlipperConnection?
+    private var connection: AppExaminerConnection?
 
     public init() {
         startObservingNetwork()
     }
 
-    public func didConnect(connection: FlipperConnection) {
+    public func didConnect(connection: AppExaminerConnection) {
         self.connection = connection
     }
 

@@ -1,4 +1,4 @@
-import FlipperClientSwift
+import AppExaminer
 import UIKit
 
 @UIApplicationMain

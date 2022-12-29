@@ -1,16 +1,16 @@
 import Foundation
-import FlipperClientSwift
+import AppExaminer
 import Network
 
 @available(iOS 13.0, *)
-public class FlipperWebSocketServerConnectionManager: FlipperConnectionManager {
+public class AppExaminerWebSocketServerConnectionManager: AppExaminerConnectionManager {
     private let server = NetworkServer()
     private let queue = DispatchQueue(label: "NetworkServer")
-    private weak var delegate: FlipperConnectionManagerDelegate?
+    private weak var delegate: AppExaminerConnectionManagerDelegate?
 
     public init() {}
 
-    public func start(delegate: FlipperConnectionManagerDelegate) {
+    public func start(delegate: AppExaminerConnectionManagerDelegate) {
         self.delegate = delegate
 
         server.delegate = self
@@ -19,7 +19,7 @@ public class FlipperWebSocketServerConnectionManager: FlipperConnectionManager {
 }
 
 @available(iOS 13.0, *)
-extension FlipperWebSocketServerConnectionManager: NetworkServerDelegate {
+extension AppExaminerWebSocketServerConnectionManager: NetworkServerDelegate {
 
     func serverBecameReady() { print(#function) }
 
@@ -31,7 +31,7 @@ extension FlipperWebSocketServerConnectionManager: NetworkServerDelegate {
         print(#function, id, data.count, String(data: data, encoding: .ascii))
         delegate?.didReceiveMessage(
             data: data,
-            sender: FlipperConnectionToNetworkServerForwarder(
+            sender: WebSocketConnectionToNetworkServerForwarder(
                 server: server,
                 queue: queue,
                 connectionID: id
@@ -41,7 +41,7 @@ extension FlipperWebSocketServerConnectionManager: NetworkServerDelegate {
 }
 
 @available(iOS 13.0, *)
-private class FlipperConnectionToNetworkServerForwarder: WebSocketConnection {
+private class WebSocketConnectionToNetworkServerForwarder: WebSocketConnection {
 
     private let server: NetworkServer
     private let queue: DispatchQueue

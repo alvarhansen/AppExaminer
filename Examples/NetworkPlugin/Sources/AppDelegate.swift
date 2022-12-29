@@ -1,14 +1,15 @@
-import FlipperClientSwift
-import FlipperClientSwiftNetworkPlugin
+import AppExaminer
+import AppExaminerNetworkPlugin
+import AppExaminerWebSocketServerConnection
 import FlipperDesktopAppConnection
-import FlipperWebSocketServerConnection
+import AppExaminer
 import UIKit
 
 @UIApplicationMain
 class ApplicationMain: UIResponder, UIApplicationDelegate {
     private lazy var _window = UIWindow()
 
-    var flipperClient: FlipperClient?
+    var appExaminerClient: AppExaminerClient?
 
     func application(
         _: UIApplication,
@@ -19,10 +20,10 @@ class ApplicationMain: UIResponder, UIApplicationDelegate {
             rootViewController: UIViewController()
         )
 
-//        flipperClient = FlipperClient(flipperConnectionManager: FlipperWebSocketServerConnectionManager())
-        flipperClient = FlipperClient(flipperConnectionManager: FlipperDesktopAppConnectionManager())
-        flipperClient?.addPlugin(NetworkPlugin())
-        flipperClient?.start()
+        appExaminerClient = AppExaminerClient(connectionManager: AppExaminerWebSocketServerConnectionManager())
+//        appExaminerClient = AppExaminerClient(connectionManager: FlipperDesktopAppConnectionManager())
+        appExaminerClient?.addPlugin(NetworkPlugin())
+        appExaminerClient?.start()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.performPOSTRequest()

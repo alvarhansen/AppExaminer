@@ -1,12 +1,12 @@
 import Foundation
 
-public class UserDefaultsPlugin: FlipperPlugin {
+public class UserDefaultsPlugin: AppExaminerPlugin {
 
     private let allUserDefaults: [String: UserDefaults] = [
         "Standard": .standard
     ]
 
-    private var connection: FlipperConnection?
+    private var connection: AppExaminerConnection?
     private var observation: NSObjectProtocol?
 
     public init() {
@@ -17,7 +17,7 @@ public class UserDefaultsPlugin: FlipperPlugin {
         )
     }
 
-    public func didConnect(connection: FlipperConnection) {
+    public func didConnect(connection: AppExaminerConnection) {
         self.connection = connection
 
         connection.receive(method: "getAllSharedPreferences") { [weak self] (response: GetAllSharedPreferencesResponse, responder) in

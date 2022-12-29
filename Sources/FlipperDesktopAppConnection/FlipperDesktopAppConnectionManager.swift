@@ -1,5 +1,5 @@
 import Foundation
-import FlipperClientSwift
+import AppExaminer
 import class UIKit.UIDevice
 
 typealias InsecureFlipperSocketProviderBuilder = (
@@ -24,9 +24,9 @@ protocol FlipperSocketProviderDelegate: AnyObject {
     func socketDidFail(sender: FlipperSocketProvider)
 }
 
-public class FlipperDesktopAppConnectionManager: FlipperConnectionManager {
+public class FlipperDesktopAppConnectionManager: AppExaminerConnectionManager {
 
-    private weak var delegate: FlipperConnectionManagerDelegate?
+    private weak var delegate: AppExaminerConnectionManagerDelegate?
 
     private let fileManager: FileManager
     private let insecureFlipperSocketProviderBuilder: InsecureFlipperSocketProviderBuilder
@@ -73,7 +73,7 @@ public class FlipperDesktopAppConnectionManager: FlipperConnectionManager {
     }
 
     public func start(
-        delegate: FlipperConnectionManagerDelegate
+        delegate: AppExaminerConnectionManagerDelegate
     ) {
         FlipperCertificateManager.deleteKeys()
 

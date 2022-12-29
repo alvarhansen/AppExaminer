@@ -1,4 +1,4 @@
-# FlipperClientSwift
+# AppExaminer
 
 [Facebook Flipper](https://github.com/facebook/flipper) iOS client side reimplementation with simpler dependencies.
 

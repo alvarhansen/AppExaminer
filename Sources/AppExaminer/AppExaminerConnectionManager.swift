@@ -5,10 +5,10 @@ public protocol WebSocketConnection: AnyObject {
     func send(data: Data) throws
 }
 
-public protocol FlipperConnectionManager {
-    func start(delegate: FlipperConnectionManagerDelegate)
+public protocol AppExaminerConnectionManager {
+    func start(delegate: AppExaminerConnectionManagerDelegate)
 }
 
-public protocol FlipperConnectionManagerDelegate: AnyObject {
+public protocol AppExaminerConnectionManagerDelegate: AnyObject {
     func didReceiveMessage(data: Data, sender: WebSocketConnection)
 }

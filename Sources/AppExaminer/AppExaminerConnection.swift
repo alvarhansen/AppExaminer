@@ -1,11 +1,11 @@
 import Foundation
 
-public protocol FlipperResponder {
+public protocol AppExaminerResponder {
     func success<T: Encodable>(response: T) throws
     func error<T: Encodable>(response: T) throws
 }
 
-public protocol FlipperConnection {
+public protocol AppExaminerConnection {
 
     func isMethodSupported(_ method: String) -> Bool
 
@@ -13,5 +13,5 @@ public protocol FlipperConnection {
 
     func call(method: String, identifier: Int, params: (Decodable.Type) -> Decodable)
 
-    func receive<T: Decodable>(method: String, callback: @escaping (T, FlipperResponder) -> Void)
+    func receive<T: Decodable>(method: String, callback: @escaping (T, AppExaminerResponder) -> Void)
 }

@@ -4,25 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "FlipperClientSwift",
+    name: "AppExaminer",
     platforms: [.iOS(.v10), .macOS(.v10_13), .tvOS(.v10), .watchOS(.v3)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "FlipperClientSwift",
-            targets: ["FlipperClientSwift"]
+            name: "AppExaminer",
+            targets: ["AppExaminer"]
         ),
         .library(
-            name: "FlipperClientSwiftNetworkPlugin",
-            targets: ["FlipperClientSwift", "FlipperClientSwiftNetworkPlugin"]
+            name: "AppExaminerNetworkPlugin",
+            targets: ["AppExaminer", "AppExaminerNetworkPlugin"]
         ),
         .library(
             name: "FlipperDesktopAppConnection",
             targets: ["FlipperDesktopAppConnection"]
         ),
         .library(
-            name: "FlipperWebSocketServerConnection",
-            targets: ["FlipperWebSocketServerConnection"]
+            name: "AppExaminerWebSocketServerConnection",
+            targets: ["AppExaminerWebSocketServerConnection"]
         ),
     ],
     dependencies: [
@@ -34,27 +34,27 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "FlipperClientSwift",
+            name: "AppExaminer",
             dependencies: [
             ]),
         .target(
-            name: "FlipperClientSwiftNetworkPlugin",
-            dependencies: ["FlipperClientSwift"]
+            name: "AppExaminerNetworkPlugin",
+            dependencies: ["AppExaminer"]
         ),
         .target(
-            name: "FlipperWebSocketServerConnection",
-            dependencies: ["FlipperClientSwift"]
+            name: "AppExaminerWebSocketServerConnection",
+            dependencies: ["AppExaminer"]
         ),
         .target(
             name: "FlipperDesktopAppConnection",
             dependencies: [
-                "FlipperClientSwift",
+                "AppExaminer",
                 "CertificateSigningRequest",
                 "SocketRocket"
             ]
         ),
         .testTarget(
-            name: "FlipperClientSwiftTests",
-            dependencies: ["FlipperClientSwift"]),
+            name: "AppExaminerTests",
+            dependencies: ["AppExaminer"]),
     ]
 )

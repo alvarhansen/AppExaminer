@@ -1,5 +1,5 @@
 import Foundation
-import FlipperClientSwift
+import AppExaminer
 import SocketRocket
 
 class InsecureSocketRocketFlipperSocketProvider: NSObject {

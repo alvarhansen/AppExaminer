@@ -1,21 +1,21 @@
 import Foundation
 
-public class FlipperClient {
+public class AppExaminerClient {
 
-    private let flipperConnectionManager: FlipperConnectionManager
-    private var plugins: [FlipperPlugin] = []
-    private var pluginConnection: [String: FlipperConnection] = [:]
+    private let connectionManager: AppExaminerConnectionManager
+    private var plugins: [AppExaminerPlugin] = []
+    private var pluginConnection: [String: AppExaminerConnection] = [:]
 
     private let decoder: JSONDecoder = JSONDecoder()
     private let encoder: JSONEncoder = JSONEncoder()
 
     public init(
-        flipperConnectionManager: FlipperConnectionManager
+        connectionManager: AppExaminerConnectionManager
     ) {
-        self.flipperConnectionManager = flipperConnectionManager
+        self.connectionManager = connectionManager
     }
 
-    public func addPlugin(_ plugin: FlipperPlugin) {
+    public func addPlugin(_ plugin: AppExaminerPlugin) {
         plugins.append(plugin)
     }
 
@@ -24,7 +24,7 @@ public class FlipperClient {
     }
 
     func _start() {
-        flipperConnectionManager.start(delegate: self)
+        connectionManager.start(delegate: self)
     }
 
     private func handleMessage(data: Data, connection: WebSocketConnection) {
@@ -84,7 +84,7 @@ public class FlipperClient {
         plugins
             .filter { $0.identifier() == identifier }
             .forEach { plugin in
-                let connection = FlipperConnectionImpl(
+                let connection = AppExaminerConnectionImpl(
                     pluginIdentifier: identifier,
                     socketConnection: connection
                 )
@@ -142,7 +142,7 @@ public class FlipperClient {
     }
 }
 
-extension FlipperClient: FlipperConnectionManagerDelegate {
+extension AppExaminerClient: AppExaminerConnectionManagerDelegate {
     public func didReceiveMessage(data: Data, sender: WebSocketConnection) {
         handleMessage(data: data, connection: sender)
     }

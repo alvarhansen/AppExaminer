@@ -2,7 +2,7 @@ name: ExamplePluginApp
 options:
   bundleIdPrefix: com.example
 packages:
-  FlipperClientSwift:
+  AppExaminer:
     path: ../../
 targets:
   ExamplePluginApp:
@@ -11,7 +11,7 @@ targets:
     deploymentTarget: "11.0"
     sources: Sources
     dependencies:
-      - package: FlipperClientSwift
+      - package: AppExaminer
     info:
       path: Info.plist
       properties:

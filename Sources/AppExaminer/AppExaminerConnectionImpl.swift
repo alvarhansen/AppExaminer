@@ -1,13 +1,13 @@
 import Foundation
 
-class FlipperConnectionImpl: FlipperConnection {
+class AppExaminerConnectionImpl: AppExaminerConnection {
 
     private let pluginIdentifier: String
     private let socketConnection: WebSocketConnection
 
     private struct Receiver {
         let responseType: Decodable.Type
-        let callback: (Decodable, FlipperResponder) -> Void
+        let callback: (Decodable, AppExaminerResponder) -> Void
     }
 
     private var receivers: [String: Receiver] = [:]
@@ -52,7 +52,7 @@ class FlipperConnectionImpl: FlipperConnection {
         )
     }
 
-    func receive<T: Decodable>(method: String, callback: @escaping (T, FlipperResponder) -> Void) {
+    func receive<T: Decodable>(method: String, callback: @escaping (T, AppExaminerResponder) -> Void) {
         receivers[method] = Receiver(
             responseType: T.self,
             callback: { response, responder in callback(response as! T, responder) }
@@ -72,7 +72,7 @@ struct ExecuteRequest<T: Encodable>: Encodable {
     let params: Params<T>
 }
 
-struct ResponseConnection: FlipperResponder {
+struct ResponseConnection: AppExaminerResponder {
 
     private struct SuccessMessage<T: Encodable>: Encodable {
         let success: T

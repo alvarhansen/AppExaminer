@@ -2,21 +2,28 @@ name: NetworkPluginApp
 options:
   bundleIdPrefix: com.example
 packages:
-  FlipperClientSwift:
+  AppExaminer:
     path: ../../
-  FlipperClientSwiftNetworkPlugin:
+  AppExaminerNetworkPlugin:
+    path: ../../
+  FlipperDesktopAppConnection:
+    path: ../../
+  AppExaminerWebSocketServerConnection:
     path: ../../
 targets:
   NetworkPluginApp:
     type: application
     platform: iOS
-    deploymentTarget: "11.0"
+    deploymentTarget: "13.0"
     sources: Sources
     dependencies:
-      - package: FlipperClientSwift
-      - package: FlipperClientSwiftNetworkPlugin
+      - package: AppExaminer
+      - package: AppExaminerNetworkPlugin
+      - package: FlipperDesktopAppConnection
+      - package: AppExaminerWebSocketServerConnection
     info:
       path: Info.plist
       properties:
         LSRequiresIPhoneOS: true
         UILaunchStoryboardName: none
+        NSLocalNetworkUsageDescription: "NSLocalNetworkUsageDescription"
