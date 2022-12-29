@@ -1,5 +1,5 @@
 import Foundation
-import AppExaminer
+import AppExaminerCore
 import SocketRocket
 
 class SecureSocketRocketFlipperSocketProvider: NSObject {

@@ -1,5 +1,5 @@
 import Foundation
-import AppExaminer
+import AppExaminerCore
 import Network
 
 @available(iOS 13.0, *)

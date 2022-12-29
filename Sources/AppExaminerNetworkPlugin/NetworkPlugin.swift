@@ -1,4 +1,4 @@
-import AppExaminer
+import AppExaminerCore
 import Foundation
 
 public class NetworkPlugin: AppExaminerPlugin {

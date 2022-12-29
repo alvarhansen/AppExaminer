@@ -1,5 +1,5 @@
 import Foundation
-import AppExaminer
+import AppExaminerCore
 #if canImport(UIKit)
 import class UIKit.UIDevice
 #endif

@@ -10,11 +10,11 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "AppExaminer",
-            targets: ["AppExaminer"]
+            targets: ["AppExaminerCore"]
         ),
         .library(
             name: "AppExaminerNetworkPlugin",
-            targets: ["AppExaminer", "AppExaminerNetworkPlugin"]
+            targets: ["AppExaminerCore", "AppExaminerNetworkPlugin"]
         ),
         .library(
             name: "FlipperDesktopAppConnection",
@@ -34,27 +34,27 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "AppExaminer",
+            name: "AppExaminerCore",
             dependencies: [
             ]),
         .target(
             name: "AppExaminerNetworkPlugin",
-            dependencies: ["AppExaminer"]
+            dependencies: ["AppExaminerCore"]
         ),
         .target(
             name: "AppExaminerWebSocketServerConnection",
-            dependencies: ["AppExaminer"]
+            dependencies: ["AppExaminerCore"]
         ),
         .target(
             name: "FlipperDesktopAppConnection",
             dependencies: [
-                "AppExaminer",
+                "AppExaminerCore",
                 "CertificateSigningRequest",
                 "SocketRocket"
             ]
         ),
         .testTarget(
             name: "AppExaminerTests",
-            dependencies: ["AppExaminer"]),
+            dependencies: ["AppExaminerCore"]),
     ]
 )

@@ -1,8 +1,7 @@
-import AppExaminer
+import AppExaminerCore
 import AppExaminerNetworkPlugin
 import AppExaminerWebSocketServerConnection
 import FlipperDesktopAppConnection
-import AppExaminer
 import UIKit
 
 @UIApplicationMain
