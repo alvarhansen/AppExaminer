@@ -1,6 +1,8 @@
 import Foundation
 import AppExaminer
+#if canImport(UIKit)
 import class UIKit.UIDevice
+#endif
 
 typealias InsecureFlipperSocketProviderBuilder = (
     FlipperSocketProviderConnectionParameters,
@@ -189,6 +191,17 @@ extension FlipperDesktopAppConnectionManager: FlipperSocketProviderDelegate {
         }
     }
 }
+
+#if canImport(UIKit)
+#else
+private struct UIDevice {
+
+    static var current: UIDevice = UIDevice(systemName: "TODO", name: "TODO")
+
+    let systemName: String
+    let name: String
+}
+#endif
 
 private extension FlipperSocketProviderConnectionParameters {
 

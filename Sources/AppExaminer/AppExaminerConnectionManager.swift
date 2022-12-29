@@ -1,5 +1,4 @@
 import Foundation
-import class UIKit.UIDevice
 
 public protocol WebSocketConnection: AnyObject {
     func send(data: Data) throws
